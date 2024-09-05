@@ -1,21 +1,43 @@
-package com.example.new_gastracker
+package com.example.new_gastracker.screens
 
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ComponentActivity
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavHostController
+import com.example.new_gastracker.GasStation
+import com.example.new_gastracker.PlacesResponse
+import com.example.new_gastracker.REQUEST_LOCATION_PERMISSION
+import com.example.new_gastracker.RetrofitClient
+import com.example.new_gastracker.ui.theme.Black
+import com.example.new_gastracker.ui.theme.Orange
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
@@ -32,18 +54,19 @@ import retrofit2.Response
 
 @SuppressLint("RestrictedApi")
 @Composable
-fun LocationMapScreen() {
+fun LocationMapScreen(navController: NavHostController) {
     val context = LocalContext.current
     var currentLocation by remember { mutableStateOf<LatLng?>(null) }
     var permissionGranted by remember { mutableStateOf(false) }
     var gasStations by remember { mutableStateOf<List<GasStation>>(emptyList()) }
-    var zoomLevel by remember { mutableStateOf(15f) }
+    val zoomLevel by remember { mutableFloatStateOf(15f) }
 
 
     val permissionState = ContextCompat.checkSelfPermission(
         context,
         Manifest.permission.ACCESS_FINE_LOCATION
     )
+
 
     LaunchedEffect(Unit) {
         if (permissionState == PackageManager.PERMISSION_GRANTED) {
@@ -58,7 +81,15 @@ fun LocationMapScreen() {
     }
 
     if (!permissionGranted) {
-        Text("Location permission not granted")
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+
+            Text("Location permission not granted")
+        }
         return
     }
 
@@ -90,24 +121,60 @@ fun LocationMapScreen() {
         }
     }
 
-    GoogleMap(
-        modifier = Modifier.fillMaxSize(),
-        cameraPositionState = cameraPositionState
-    ) {
-        currentLocation?.let {
-            Marker(
-                state = MarkerState(position = it),
-                title = "You are here!",
-                snippet = "Current location"
-            )
-        }
 
-        gasStations.forEach { station ->
-            Marker(
-                state = MarkerState(position = station.location),
-                title = station.name,
-                snippet = "Nearby gas station",
-                icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)
+
+    Box(modifier = Modifier.fillMaxSize()) {
+
+        GoogleMap(
+            modifier = Modifier.fillMaxSize(),
+            cameraPositionState = cameraPositionState
+        ) {
+            currentLocation?.let {
+                Marker(
+                    state = MarkerState(position = it),
+                    title = "You are here!",
+                    snippet = "Current location"
+                )
+            }
+
+            gasStations.forEach { station ->
+                Marker(
+                    state = MarkerState(position = station.location),
+                    title = station.name,
+                    snippet = "Nearby gas station",
+                    icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)
+                )
+            }
+
+
+        }
+        BackButton(navController = navController)
+
+
+    }
+
+}
+
+@Composable
+fun BackButton(navController: NavHostController) {
+    Box(modifier = Modifier
+        .statusBarsPadding()
+        .padding(start = 8.dp, top = 8.dp)
+        .background(Black, RoundedCornerShape(20.dp))
+    ) {
+
+        IconButton(
+            onClick = {
+                navController.navigate(Screens.GasInfoScreen.screen)
+            },
+            modifier = Modifier
+                .align(Alignment.TopStart)
+        ) {
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                contentDescription = "Back",
+                tint = Orange,
+                modifier = Modifier.size(32.dp)
             )
         }
     }
@@ -141,4 +208,3 @@ private fun fetchNearbyGasStations(lat: Double, lng: Double, onResult: (List<Gas
 }
 
 
-const val REQUEST_LOCATION_PERMISSION = 1
