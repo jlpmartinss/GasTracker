@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.toSize
 import com.example.new_gastracker.R
 import com.example.new_gastracker.ui.theme.Grey
 import com.example.new_gastracker.ui.theme.LessWhite
+import com.example.new_gastracker.ui.theme.Orange
 
 
 @Composable
@@ -87,9 +88,9 @@ fun GasPriceCard(
                     text = "€${currentPrice}",
                     color = Color.White,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp
+                    fontSize = 17.sp
                 )
-                Text(text = "/litro", color = LessWhite)
+                Text(text = "/L", color = LessWhite)
 
                 val (painterId, colorFilter) = when {
                     currentPrice > previousPrice -> {
@@ -99,15 +100,15 @@ fun GasPriceCard(
                         R.drawable.arrow_down to ColorFilter.tint(Color.Green)
                     }
                     else -> {
-                        R.drawable.equal to ColorFilter.tint(Color.White)
+                        R.drawable.equal to ColorFilter.tint(Orange)
                     }
                 }
                 Image(
                     painter = painterResource(painterId),
-                    contentDescription = "Arrow",
+                    contentDescription = null,
                     modifier = Modifier
-                        .padding(8.dp)
-                        .size(25.dp),
+                        .padding(horizontal = 12.dp)
+                        .size(20.dp),
                     colorFilter = colorFilter
                 )
             }
