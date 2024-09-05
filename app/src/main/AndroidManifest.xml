@@ -14,17 +14,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.New_GasTracker"
         tools:targetApi="31">
+        <!-- Splash screen activity -->
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashActivity"
             android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.New_GasTracker">
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.New_GasTracker"/>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCsUKTs3FzbZdKc27_tHpCF5gcjNvMpE5U" />
