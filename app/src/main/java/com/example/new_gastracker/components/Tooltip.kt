@@ -15,10 +15,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.new_gastracker.GasType
+import com.example.new_gastracker.screens.GasType
 import com.example.new_gastracker.ui.theme.Orange
 
 @Composable
@@ -59,9 +60,10 @@ fun Tooltip(
                     }
             ) {
                 Text(
-                    text = "Previous Price: €${gasType.previousPrice}",
+                    text = "Preço anterior: €${gasType.previousPrice}",
                     color = Color.White,
                     fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold
                 )
             }
         }
