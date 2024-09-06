@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -60,6 +62,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.play.services.location)
+    implementation(libs.androidx.appcompat)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -81,5 +84,10 @@ dependencies {
     // KTX for the Maps SDK for Android Utility Library
     implementation("com.google.maps.android:maps-utils-ktx:5.0.0")
     implementation("com.google.maps.android:maps-compose:6.1.0")
+    implementation("com.google.dagger:hilt-android:2.48")
+    kapt("com.google.dagger:hilt-android-compiler:2.48")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4")
+    implementation ("androidx.navigation:navigation-compose:2.7.6")
+    implementation(libs.core.splashscreen)
 
 }

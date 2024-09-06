@@ -1,6 +1,8 @@
 [versions]
+activityComposeVersion = "1.7.2"
 agp = "8.5.0"
 kotlin = "1.9.0"
+hilt = "2.50"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -8,10 +10,20 @@ espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.4"
 activityCompose = "1.9.1"
 composeBom = "2024.04.01"
+lifecycleRuntimeKtxVersion = "2.6.1"
+material = "1.7.0"
 playServicesLocation = "21.3.0"
+core-splashscreen = "1.0.1"
+appcompat = "1.7.0"
+ui = "1.7.0"
+uiToolingPreview = "1.7.0"
 
 [libraries]
+androidx-activity-compose-v172 = { module = "androidx.activity:activity-compose", version.ref = "activityComposeVersion" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-lifecycle-runtime-ktx-v261 = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtxVersion" }
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleRuntimeKtx" }
+androidx-material = { module = "androidx.compose.material:material", version.ref = "material" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -26,8 +38,16 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "core-splashscreen" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+ui = { module = "androidx.compose.ui:ui", version.ref = "ui" }
+ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "uiToolingPreview" }
+
 
 [plugins]
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 
