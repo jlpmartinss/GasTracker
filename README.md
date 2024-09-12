@@ -40,7 +40,6 @@ This app uses the [Devo Abastecer API](https://github.com/carlosrsabreu/devo-aba
 ## Tech Stack
 
 - **Kotlin** with **Jetpack Compose** for the UI.
-- **MVVM** architecture for separation of concerns.
 - **Retrofit** for API calls.
 - **Google Maps API** for location services.
 
